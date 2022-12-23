@@ -8,7 +8,7 @@ const {
   directedEdgesCount,
 } = require('../../utils/helpers');
 
-const { DAG, getTotalDirectedEdges } = require('../../utils/dag_sp');
+const { DAG, getTotalDirectedEdges } = require('../../utils/dag_erp');
 
 router.post('/customer', async (req, res) => {
   let startTime = new Date().getTime();
@@ -34,26 +34,26 @@ router.post('/customer', async (req, res) => {
   let customer = new Customer(newCustomer);
   await customer.save();
   res.json({ customer });
-  //   let endTime = new Date().getTime();
+  let endTime = new Date().getTime();
 
-  //   let data = `Q1 Time:${
-  //     startTime - endTime
-  //   } LOC:3 Stages:1 DirectedEdges:${directedEdgesCount(
-  //     DAG,
-  //     'Customer',
-  //     'Customer'
-  //   )}  directedEdgesCoverage:${
-  //     directedEdgesCount(DAG, 'Customer', 'Customer') / getTotalDirectedEdges()
-  //   } indirectPath: ${indirectPathCount(
-  //     DAG,
-  //     'Customer',
-  //     'Customer'
-  //   )} requiredCollection:1`;
+  let data = `Q1 Time:${
+    startTime - endTime
+  } LOC:3 Stages:1 DirectedEdges:${directedEdgesCount(
+    DAG,
+    'Customer',
+    'Customer'
+  )}  directedEdgesCoverage:${
+    directedEdgesCount(DAG, 'Customer', 'Customer') / getTotalDirectedEdges()
+  } indirectPath: ${indirectPathCount(
+    DAG,
+    'Customer',
+    'Customer'
+  )} requiredCollection:1`;
 
-  //   data += '\n';
-  //   fs.appendFile('sp.txt', data, (err) => {
-  //     return console.log(err);
-  //   });
+  data += '\n';
+  fs.appendFile('erp.txt', data, (err) => {
+    return console.log(err);
+  });
 });
 
 // router.get('/customer', async (req, res) => {

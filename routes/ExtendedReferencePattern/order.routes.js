@@ -1,8 +1,8 @@
 const express = require('express');
 const { default: mongoose } = require('mongoose');
-const Product = require('../../model/SubsetPattern/Products.schema');
-const Order = require('../../model/SubsetPattern/Order.schema');
-const Customer = require('../../model/SubsetPattern/Customer.schema');
+const Product = require('../../model/ExtendedReferencePattern/Product.schema');
+const Order = require('../../model/ExtendedReferencePattern/Order.schema');
+const Customer = require('../../model/ExtendedReferencePattern/Customer.schema');
 const router = express.Router();
 
 const fs = require('fs');

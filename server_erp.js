@@ -5,12 +5,6 @@ const categoryRoutes = require('./routes/ExtendedReferencePattern/category.route
 const productRoutes = require('./routes/ExtendedReferencePattern/products.routes');
 const reviewRoutes = require('./routes/ExtendedReferencePattern/review.routes');
 const orderRoutes = require('./routes/ExtendedReferencePattern/order.routes');
-const {
-  getSubpath,
-  indirectPathCount,
-  directedEdgesCount,
-  createDAG,
-} = require('./utils/helpers');
 
 require('dotenv').config();
 
@@ -23,33 +17,21 @@ database.on('error', (error) => {
   console.log(error);
 });
 
-const DAG = {
-  Customer: [],
-  Category: ['Product'],
-  Product: ['Category'],
-  Review: ['Product', 'Customer'],
-  Order: ['Product', 'Customer'],
-};
-
-let dag;
-let totalDirectedEdges = 0;
-
 database.once('connected', () => {
   console.log('Database Connected');
 
-  dag = createDAG(database);
+  // dag = createDAG(database);
 
-  console.log(dag);
-  Object.keys(dag).forEach((key, index) => {
-    totalDirectedEdges = totalDirectedEdges + dag[key].length;
-  });
-  console.log(totalDirectedEdges);
-  console.log(directedEdgesCount(dag, 'Category', 'Order'));
-  console.log(indirectPathCount(dag, 'Product', 'Product') - 1);
-  console.log(getSubpath(directedEdgesCount(dag, 'Category', 'Order')));
+  // console.log(dag);
+  // Object.keys(dag).forEach((key, index) => {
+  //   totalDirectedEdges = totalDirectedEdges + dag[key].length;
+  // });
+  // console.log(totalDirectedEdges);
+  // console.log(directedEdgesCount(dag, 'Category', 'Order'));
+  // console.log(indirectPathCount(dag, 'Product', 'Product') - 1);
+  // console.log(getSubpath(directedEdgesCount(dag, 'Category', 'Order')));
 });
 
-module.exports = { dag, totalDirectedEdges };
 const app = express();
 
 app.use(express.json());
