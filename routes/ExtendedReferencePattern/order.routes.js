@@ -66,30 +66,40 @@ router.post('/order', async (req, res) => {
   });
 });
 
-// router.get('/order/recent', async (req, res) => {
-//   let startTime = new Date().getTime();
+router.get('/order/recent', async (req, res) => {
+  let startTime = new Date().getTime();
 
-//   let recentOrders = await Customer.findById(
-//     mongoose.Types.ObjectId('639727e0de472407751ba45c')
-//   ).select('lastTenOrders');
-//   res.json(recentOrders);
+  let recentOrders = await Order.findOne({
+    where: {
+      customer: {
+        cust_id: mongoose.Types.ObjectId('63a5f00d3fb08ce64c0cee89'),
+      },
+    },
+  })
+    .limit(10)
+    .skip(0)
+    .sort({
+      orderdate: 'desc',
+    });
 
-//   let endTime = new Date().getTime();
-//   let directedEdges = directedEdgesCount(DAG, 'Customer', 'Customer');
+  res.json(recentOrders);
 
-//   let indirectPath = indirectPathCount(DAG, 'Customer', 'Customer');
+  let endTime = new Date().getTime();
+  let directedEdges = directedEdgesCount(DAG, 'Order', 'Order');
 
-//   let data = `Q7 Time:${
-//     startTime - endTime
-//   } LOC:4 Stages:2 DirectedEdges:${directedEdges}  directedEdgesCoverage:${
-//     directedEdges / getTotalDirectedEdges()
-//   } indirectPath: ${indirectPath} requiredCollection:1`;
+  let indirectPath = indirectPathCount(DAG, 'Order', 'Order');
 
-//   data += '\n';
-//   fs.appendFile('sp.txt', data, (err) => {
-//     return console.log(err);
-//   });
-// });
+  let data = `Q7 Time:${
+    startTime - endTime
+  } LOC:13 Stages:5 DirectedEdges:${directedEdges}  directedEdgesCoverage:${
+    directedEdges / getTotalDirectedEdges()
+  } indirectPath: ${indirectPath} requiredCollection:1`;
+
+  data += '\n';
+  fs.appendFile('erp.txt', data, (err) => {
+    return console.log(err);
+  });
+});
 
 // router.get('/order/all', async (req, res) => {
 //   let startTime = new Date().getTime();
