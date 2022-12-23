@@ -21,21 +21,21 @@ router.post('/order', async (req, res) => {
     taxonomy: 100,
     totalamount: 1100,
     products: [
-      mongoose.Types.ObjectId('639862c1d0b2cf8daffb50b5'),
-      mongoose.Types.ObjectId('639862c1d0b2cf8daffb50b5'),
+      mongoose.Types.ObjectId('63a59cbdf62279b411978fab'),
+      mongoose.Types.ObjectId('63a59cbdf62279b411978fab'),
     ],
-    customer: mongoose.Types.ObjectId('639727e0de472407751ba45c'),
+    customer: mongoose.Types.ObjectId('63a599c7c014200c551e66a6'),
   };
   let order = new Order(newOrder);
   let customer = await Customer.findById(
-    mongoose.Types.ObjectId('639727e0de472407751ba45c')
+    mongoose.Types.ObjectId('63a599c7c014200c551e66a6')
   );
 
   try {
     const sess = await mongoose.startSession();
     sess.startTransaction();
     await order.save({ session: sess });
-    customer.lastTenOrders.push(order._id);
+    customer.lastTenOrders.push({ price: 1100, order_id: order._id });
     await customer.save({ session: sess });
     await sess.commitTransaction();
   } catch (error) {

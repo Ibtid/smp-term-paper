@@ -18,11 +18,11 @@ router.post('/product', async (req, res) => {
     actor: 'Game',
     price: 100,
     special: 10,
-    category: mongoose.Types.ObjectId('63972cb7a7dfcff6b577c041'),
+    category: mongoose.Types.ObjectId('63a59acfc014200c551e66a8'),
   };
   let product = new Product(newProduct);
   let category = await Category.findById(
-    mongoose.Types.ObjectId('63972cb7a7dfcff6b577c041')
+    mongoose.Types.ObjectId('63a59acfc014200c551e66a8')
   );
   category.products.push(product._id);
   await category.save();

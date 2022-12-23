@@ -1,10 +1,4 @@
-Q1 Time:-102 LOC:3 Stages:1 DirectedEdges:0  directedEdgesCoverage:0 indirectPath: 1 requiredCollection:1
-Q6 Time:-70 LOC:4 Stages:2 DirectedEdges:0  directedEdgesCoverage:0 indirectPath: 1 requiredCollection:1
-Q2 Time:-86 LOC:3 Stages:1 DirectedEdges:0  directedEdgesCoverage:0 indirectPath: 1 requiredCollection:1
-Q3 Time:-238 LOC:6 Stages:3 DirectedEdges:0  directedEdgesCoverage:0 indirectPath: 2 requiredCollection:2
-Q4 Time:-356 LOC:25 Stages:3 DirectedEdges:0  directedEdgesCoverage:0 indirectPath: 2 requiredCollection:2
-Q7 Time:-75 LOC:4 Stages:2 DirectedEdges:0  directedEdgesCoverage:0 indirectPath: 1 requiredCollection:1
-Q8 Time:-62 LOC:4 Stages:2 DirectedEdges:0  directedEdgesCoverage:0 indirectPath: 1 requiredCollection:1
-Q9 Time:-322 LOC:13 Stages:5 DirectedEdges:2  directedEdgesCoverage:0.25 indirectPath: 1 requiredCollection:3
-Q5 Time:-450 LOC:27 Stages:3 DirectedEdges:0  directedEdgesCoverage:0 indirectPath: 1 requiredCollection:2
-Q10 Time:-308 LOC:7 Stages:4 DirectedEdges:2  directedEdgesCoverage:0.25 indirectPath: 2 requiredCollection:2
+Q1 Time:-256 LOC:3 Stages:1 DirectedEdges:0  directedEdgesCoverage:0 indirectPath: 1 requiredCollection:1
+Q2 Time:-91 LOC:3 Stages:1 DirectedEdges:0  directedEdgesCoverage:0 indirectPath: 1 requiredCollection:1
+Q3 Time:-266 LOC:6 Stages:3 DirectedEdges:0  directedEdgesCoverage:0 indirectPath: 2 requiredCollection:2
+Q4 Time:-320 LOC:25 Stages:3 DirectedEdges:0  directedEdgesCoverage:0 indirectPath: 2 requiredCollection:2
