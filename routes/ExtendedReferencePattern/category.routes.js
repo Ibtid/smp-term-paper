@@ -22,24 +22,24 @@ router.post('/category', async (req, res) => {
 
   let endTime = new Date().getTime();
 
-  //   let data = `Q2 Time:${
-  //     startTime - endTime
-  //   } LOC:3 Stages:1 DirectedEdges:${directedEdgesCount(
-  //     DAG,
-  //     'Category',
-  //     'Category'
-  //   )}  directedEdgesCoverage:${
-  //     directedEdgesCount(DAG, 'Category', 'Category') / getTotalDirectedEdges()
-  //   } indirectPath: ${indirectPathCount(
-  //     DAG,
-  //     'Category',
-  //     'Category'
-  //   )} requiredCollection:1`;
+  let data = `Q2 Time:${
+    startTime - endTime
+  } LOC:3 Stages:1 DirectedEdges:${directedEdgesCount(
+    DAG,
+    'Category',
+    'Category'
+  )}  directedEdgesCoverage:${
+    directedEdgesCount(DAG, 'Category', 'Category') / getTotalDirectedEdges()
+  } indirectPath: ${indirectPathCount(
+    DAG,
+    'Category',
+    'Category'
+  )} requiredCollection:1`;
 
-  //   data += '\n';
-  //   fs.appendFile('sp.txt', data, (err) => {
-  //     return console.log(err);
-  //   });
+  data += '\n';
+  fs.appendFile('erp.txt', data, (err) => {
+    return console.log(err);
+  });
 });
 
 module.exports = router;

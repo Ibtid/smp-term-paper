@@ -9,7 +9,7 @@ const {
   indirectPathCount,
   directedEdgesCount,
 } = require('../../utils/helpers');
-const { DAG, getTotalDirectedEdges } = require('../../utils/dag_sp');
+const { DAG, getTotalDirectedEdges } = require('../../utils/dag_erp');
 
 router.post('/product', async (req, res) => {
   let startTime = new Date().getTime();
@@ -18,33 +18,33 @@ router.post('/product', async (req, res) => {
     actor: 'Game',
     price: 100,
     special: 10,
-    category: mongoose.Types.ObjectId('63972cb7a7dfcff6b577c041'),
+    category: mongoose.Types.ObjectId('63a5f0ce825f22d08ab0ed15'),
   };
   let product = new Product(newProduct);
   let category = await Category.findById(
-    mongoose.Types.ObjectId('63972cb7a7dfcff6b577c041')
+    mongoose.Types.ObjectId('63a5f0ce825f22d08ab0ed15')
   );
   category.products.push(product._id);
   await category.save();
   await product.save();
   res.json({ product });
 
-  //   let endTime = new Date().getTime();
-  //   let data = `Q3 Time:${startTime - endTime} LOC:6 Stages:3 DirectedEdges:${
-  //     directedEdgesCount(DAG, 'Product', 'Product') +
-  //     directedEdgesCount(DAG, 'Category', 'Category')
-  //   }  directedEdgesCoverage:${
-  //     directedEdgesCount(DAG, 'Product', 'Product') +
-  //     directedEdgesCount(DAG, 'Category', 'Category') / getTotalDirectedEdges()
-  //   } indirectPath: ${
-  //     indirectPathCount(DAG, 'Product', 'Product') +
-  //     indirectPathCount(DAG, 'Category', 'Category')
-  //   } requiredCollection:2`;
+  let endTime = new Date().getTime();
+  let data = `Q3 Time:${startTime - endTime} LOC:6 Stages:3 DirectedEdges:${
+    directedEdgesCount(DAG, 'Product', 'Product') +
+    directedEdgesCount(DAG, 'Category', 'Category')
+  }  directedEdgesCoverage:${
+    directedEdgesCount(DAG, 'Product', 'Product') +
+    directedEdgesCount(DAG, 'Category', 'Category') / getTotalDirectedEdges()
+  } indirectPath: ${
+    indirectPathCount(DAG, 'Product', 'Product') +
+    indirectPathCount(DAG, 'Category', 'Category')
+  } requiredCollection:2`;
 
-  //   data += '\n';
-  //   fs.appendFile('sp.txt', data, (err) => {
-  //     return console.log(err);
-  //   });
+  data += '\n';
+  fs.appendFile('erp.txt', data, (err) => {
+    return console.log(err);
+  });
 });
 
 // router.get('/product/category/products', async (req, res) => {

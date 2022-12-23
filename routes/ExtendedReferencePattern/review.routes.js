@@ -10,35 +10,35 @@ const {
   directedEdgesCount,
 } = require('../../utils/helpers');
 
-const { DAG, getTotalDirectedEdges } = require('../../utils/dag_sp');
+const { DAG, getTotalDirectedEdges } = require('../../utils/dag_erp');
 
 router.post('/review/create', async (req, res) => {
   let startTime = new Date().getTime();
 
   let newReview = {
     review: 'I hated it',
-    product: mongoose.Types.ObjectId('639862c1d0b2cf8daffb50b5'),
-    customer: mongoose.Types.ObjectId('639727e0de472407751ba45c'),
+    product: mongoose.Types.ObjectId('63a5f1ef0e7a90a3f4edda43'),
+    customer: mongoose.Types.ObjectId('63a5f00d3fb08ce64c0cee89'),
   };
   let review = new Review(newReview);
   await review.save();
 
   res.json({ review });
-  //   let endTime = new Date().getTime();
-  //   let directedEdges = directedEdgesCount(DAG, 'Customer', 'Customer');
+  let endTime = new Date().getTime();
+  let directedEdges = directedEdgesCount(DAG, 'Customer', 'Customer');
 
-  //   let indirectPath = indirectPathCount(DAG, 'Customer', 'Customer');
+  let indirectPath = indirectPathCount(DAG, 'Customer', 'Customer');
 
-  //   let data = `Q5 Time:${
-  //     startTime - endTime
-  //   } LOC:27 Stages:3 DirectedEdges:${directedEdges}  directedEdgesCoverage:${
-  //     directedEdges / getTotalDirectedEdges()
-  //   } indirectPath: ${indirectPath} requiredCollection:2`;
+  let data = `Q5 Time:${
+    startTime - endTime
+  } LOC:27 Stages:3 DirectedEdges:${directedEdges}  directedEdgesCoverage:${
+    directedEdges / getTotalDirectedEdges()
+  } indirectPath: ${indirectPath} requiredCollection:2`;
 
-  //   data += '\n';
-  //   fs.appendFile('sp.txt', data, (err) => {
-  //     return console.log(err);
-  //   });
+  data += '\n';
+  fs.appendFile('erp.txt', data, (err) => {
+    return console.log(err);
+  });
 });
 
 module.exports = router;

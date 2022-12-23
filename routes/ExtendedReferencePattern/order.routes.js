@@ -12,7 +12,7 @@ const {
   directedEdgesCount,
 } = require('../../utils/helpers');
 
-const { DAG, getTotalDirectedEdges } = require('../../utils/dag_sp');
+const { DAG, getTotalDirectedEdges } = require('../../utils/dag_erp');
 
 router.post('/order', async (req, res) => {
   let startTime = new Date().getTime();
