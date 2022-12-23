@@ -13,17 +13,17 @@ const {
 
 const { DAG, getTotalDirectedEdges } = require('../../utils/dag_sp');
 
-router.post('/review/create', async (req, res) => {
+router.post('/review', async (req, res) => {
   let startTime = new Date().getTime();
 
   let newReview = {
     review: 'I hated it',
     product: mongoose.Types.ObjectId('639862c1d0b2cf8daffb50b5'),
-    customer: mongoose.Types.ObjectId('639727e0de472407751ba45c'),
+    customer: mongoose.Types.ObjectId('63a59cbdf62279b411978fab'),
   };
   let review = new Review(newReview);
   let product = await Product.findById(
-    mongoose.Types.ObjectId('639862c1d0b2cf8daffb50b5')
+    mongoose.Types.ObjectId('63a59cbdf62279b411978fab')
   );
 
   console.log(product);
@@ -32,7 +32,11 @@ router.post('/review/create', async (req, res) => {
     const sess = await mongoose.startSession();
     sess.startTransaction();
     await review.save({ session: sess });
-    product.lastTenReview.push(review._id);
+    product.lastTenReview.push({
+      review: review.review,
+      review_id: review._id,
+      customer_id: review.customer,
+    });
     await product.save({ session: sess });
     await sess.commitTransaction();
   } catch (error) {
