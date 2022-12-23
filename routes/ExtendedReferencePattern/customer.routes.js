@@ -56,34 +56,34 @@ router.post('/customer', async (req, res) => {
   });
 });
 
-// router.get('/customer', async (req, res) => {
-//   let startTime = new Date().getTime();
+router.get('/customer', async (req, res) => {
+  let startTime = new Date().getTime();
 
-//   let customer = await Customer.findById(
-//     mongoose.Types.ObjectId('639727e0de472407751ba45c')
-//   );
-//   res.json({ customer });
+  let customer = await Customer.findById(
+    mongoose.Types.ObjectId('63a5f00d3fb08ce64c0cee89')
+  );
+  res.json({ customer });
 
-//   let endTime = new Date().getTime();
+  let endTime = new Date().getTime();
 
-//   let data = `Q6 Time:${
-//     startTime - endTime
-//   } LOC:4 Stages:2 DirectedEdges:${directedEdgesCount(
-//     DAG,
-//     'Customer',
-//     'Customer'
-//   )}  directedEdgesCoverage:${
-//     directedEdgesCount(DAG, 'Customer', 'Customer') / getTotalDirectedEdges()
-//   } indirectPath: ${indirectPathCount(
-//     DAG,
-//     'Customer',
-//     'Customer'
-//   )} requiredCollection:1`;
+  let data = `Q6 Time:${
+    startTime - endTime
+  } LOC:4 Stages:2 DirectedEdges:${directedEdgesCount(
+    DAG,
+    'Customer',
+    'Customer'
+  )}  directedEdgesCoverage:${
+    directedEdgesCount(DAG, 'Customer', 'Customer') / getTotalDirectedEdges()
+  } indirectPath: ${indirectPathCount(
+    DAG,
+    'Customer',
+    'Customer'
+  )} requiredCollection:1`;
 
-//   data += '\n';
-//   fs.appendFile('sp.txt', data, (err) => {
-//     return console.log(err);
-//   });
-// });
+  data += '\n';
+  fs.appendFile('erp.txt', data, (err) => {
+    return console.log(err);
+  });
+});
 
 module.exports = router;
