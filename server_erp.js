@@ -19,17 +19,6 @@ database.on('error', (error) => {
 
 database.once('connected', () => {
   console.log('Database Connected');
-
-  // dag = createDAG(database);
-
-  // console.log(dag);
-  // Object.keys(dag).forEach((key, index) => {
-  //   totalDirectedEdges = totalDirectedEdges + dag[key].length;
-  // });
-  // console.log(totalDirectedEdges);
-  // console.log(directedEdgesCount(dag, 'Category', 'Order'));
-  // console.log(indirectPathCount(dag, 'Product', 'Product') - 1);
-  // console.log(getSubpath(directedEdgesCount(dag, 'Category', 'Order')));
 });
 
 const app = express();
