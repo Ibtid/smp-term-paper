@@ -16,47 +16,54 @@ const { DAG, getTotalDirectedEdges } = require('../../utils/dag_erp');
 
 router.post('/order', async (req, res) => {
   let startTime = new Date().getTime();
+  let products_ids = ['63a5f1ef0e7a90a3f4edda43'];
+  let products = [];
+  for (let i = 0; i < products_ids.length; i++) {
+    let retrieveProduct = await Product.findById(
+      mongoose.Types.ObjectId('63a5f1ef0e7a90a3f4edda43')
+    );
+    products.push({
+      name: retrieveProduct.title,
+      price: retrieveProduct.price,
+      prod_id: products_ids[i],
+    });
+  }
+
+  let customer = await Customer.findById(
+    mongoose.Types.ObjectId('63a5f00d3fb08ce64c0cee89')
+  );
+
   let newOrder = {
     netamount: 1000,
     taxonomy: 100,
     totalamount: 1100,
-    products: [
-      {
-        name: 'iii',
-        price: 100,
-        prod_id: mongoose.Types.ObjectId('639862c1d0b2cf8daffb50b5'),
-      },
-    ],
+    products: products,
     customer: {
-      name: 'p',
-      address1: 'pp',
-      address2: 'ppp',
-      cust_id: mongoose.Types.ObjectId('639727e0de472407751ba45c'),
+      name: customer.firstname,
+      address1: customer.address1,
+      address2: customer.address2,
+      cust_id: mongoose.Types.ObjectId('63a5f00d3fb08ce64c0cee89'),
     },
   };
   let order = new Order(newOrder);
-  await order.save({ session: sess });
+  await order.save();
 
   res.json({ order });
-  // let endTime = new Date().getTime();
-  // let directedEdges =
-  //   directedEdgesCount(DAG, 'Customer', 'Customer') +
-  //   directedEdgesCount(DAG, 'Order', 'Order');
+  let endTime = new Date().getTime();
+  let directedEdges = directedEdgesCount(DAG, 'Order', 'Order');
 
-  // let indirectPath =
-  //   indirectPathCount(DAG, 'Customer', 'Customer') +
-  //   indirectPathCount(DAG, 'Order', 'Order');
+  let indirectPath = indirectPathCount(DAG, 'Order', 'Order');
 
-  // let data = `Q4 Time:${
-  //   startTime - endTime
-  // } LOC:25 Stages:3 DirectedEdges:${directedEdges}  directedEdgesCoverage:${
-  //   directedEdges / getTotalDirectedEdges()
-  // } indirectPath: ${indirectPath} requiredCollection:2`;
+  let data = `Q4 Time:${
+    startTime - endTime
+  } LOC:32 Stages:5 DirectedEdges:${directedEdges}  directedEdgesCoverage:${
+    directedEdges / getTotalDirectedEdges()
+  } indirectPath: ${indirectPath} requiredCollection:3`;
 
-  // data += '\n';
-  // fs.appendFile('sp.txt', data, (err) => {
-  //   return console.log(err);
-  // });
+  data += '\n';
+  fs.appendFile('erp.txt', data, (err) => {
+    return console.log(err);
+  });
 });
 
 // router.get('/order/recent', async (req, res) => {

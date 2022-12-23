@@ -12,7 +12,7 @@ const {
 
 const { DAG, getTotalDirectedEdges } = require('../../utils/dag_erp');
 
-router.post('/review/create', async (req, res) => {
+router.post('/review', async (req, res) => {
   let startTime = new Date().getTime();
 
   let newReview = {
