@@ -95,19 +95,21 @@ router.get('/order/recent', async (req, res) => {
 
 router.get('/order/all', async (req, res) => {
   let startTime = new Date().getTime();
-  let allOrders = await Order.find().where({
-    customer: mongoose.Types.ObjectId('639727e0de472407751ba45c'),
-  });
+  let allOrders = await Order.find()
+    .where({
+      customer: mongoose.Types.ObjectId('63a599c7c014200c551e66a6'),
+    })
+    .populate('products');
   res.json(allOrders);
 
   let endTime = new Date().getTime();
-  let directedEdges = directedEdgesCount(DAG, 'Order', 'Order');
+  let directedEdges = directedEdgesCount(DAG, 'Order', 'Product');
 
-  let indirectPath = indirectPathCount(DAG, 'Order', 'Order');
+  let indirectPath = indirectPathCount(DAG, 'Order', 'Product');
 
   let data = `Q8 Time:${
     startTime - endTime
-  } LOC:4 Stages:2 DirectedEdges:${directedEdges}  directedEdgesCoverage:${
+  } LOC:6 Stages:3 DirectedEdges:${directedEdges}  directedEdgesCoverage:${
     directedEdges / getTotalDirectedEdges()
   } indirectPath: ${indirectPath} requiredCollection:1`;
 
@@ -122,14 +124,14 @@ router.get('/order/myProducts/reviews', async (req, res) => {
 
   let allOrders = await Order.find()
     .where({
-      customer: mongoose.Types.ObjectId('639727e0de472407751ba45c'),
+      customer: mongoose.Types.ObjectId('63a599c7c014200c551e66a6'),
     })
     .populate({
       path: 'products',
       populate: {
         path: 'lastTenReview',
         where: {
-          customer: mongoose.Types.ObjectId('639727e0de472407751ba45c'),
+          customer: mongoose.Types.ObjectId('63a599c7c014200c551e66a6'),
         },
       },
     });

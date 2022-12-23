@@ -51,7 +51,7 @@ router.get('/product/category/products', async (req, res) => {
   let startTime = new Date().getTime();
 
   let relatedProducts = await Product.findById(
-    mongoose.Types.ObjectId('639862c1d0b2cf8daffb50b5')
+    mongoose.Types.ObjectId('63a59cbdf62279b411978fab')
   ).populate({
     path: 'category',
     populate: {
@@ -71,7 +71,7 @@ router.get('/product/category/products', async (req, res) => {
 
   let data = `Q10 Time:${
     startTime - endTime
-  } LOC:7 Stages:4 DirectedEdges:${directedEdges}  directedEdgesCoverage:${
+  } LOC:7 Stages:3 DirectedEdges:${directedEdges}  directedEdgesCoverage:${
     directedEdges / getTotalDirectedEdges()
   } indirectPath: ${indirectPath} requiredCollection:2`;
 
