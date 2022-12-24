@@ -47,38 +47,38 @@ router.post('/product', async (req, res) => {
   });
 });
 
-// router.get('/product/category/products', async (req, res) => {
-//   let startTime = new Date().getTime();
+router.get('/product/category/products', async (req, res) => {
+  let startTime = new Date().getTime();
 
-//   let relatedProducts = await Product.findById(
-//     mongoose.Types.ObjectId('639862c1d0b2cf8daffb50b5')
-//   ).populate({
-//     path: 'category',
-//     populate: {
-//       path: 'products',
-//     },
-//   });
+  let relatedProducts = await Product.findById(
+    mongoose.Types.ObjectId('639862c1d0b2cf8daffb50b5')
+  ).populate({
+    path: 'category',
+    populate: {
+      path: 'products',
+    },
+  });
 
-//   res.json({ relatedProducts });
-//   let endTime = new Date().getTime();
-//   let directedEdges =
-//     directedEdgesCount(DAG, 'Product', 'Category') +
-//     directedEdgesCount(DAG, 'Category', 'Product');
+  res.json({ relatedProducts });
+  let endTime = new Date().getTime();
+  let directedEdges =
+    directedEdgesCount(DAG, 'Product', 'Category') +
+    directedEdgesCount(DAG, 'Category', 'Product');
 
-//   let indirectPath =
-//     indirectPathCount(DAG, 'Product', 'Category') +
-//     indirectPathCount(DAG, 'Category', 'Product');
+  let indirectPath =
+    indirectPathCount(DAG, 'Product', 'Category') +
+    indirectPathCount(DAG, 'Category', 'Product');
 
-//   let data = `Q10 Time:${
-//     startTime - endTime
-//   } LOC:7 Stages:4 DirectedEdges:${directedEdges}  directedEdgesCoverage:${
-//     directedEdges / getTotalDirectedEdges()
-//   } indirectPath: ${indirectPath} requiredCollection:2`;
+  let data = `Q10 Time:${
+    startTime - endTime
+  } LOC:7 Stages:4 DirectedEdges:${directedEdges}  directedEdgesCoverage:${
+    directedEdges / getTotalDirectedEdges()
+  } indirectPath: ${indirectPath} requiredCollection:2`;
 
-//   data += '\n';
-//   fs.appendFile('sp.txt', data, (err) => {
-//     return console.log(err);
-//   });
-// });
+  data += '\n';
+  fs.appendFile('erp.txt', data, (err) => {
+    return console.log(err);
+  });
+});
 
 module.exports = router;

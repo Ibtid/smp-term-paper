@@ -7,3 +7,4 @@ Q6 Time:-84 LOC:4 Stages:2 DirectedEdges:0  directedEdgesCoverage:0 indirectPath
 Q7 Time:-102 LOC:13 Stages:5 DirectedEdges:0  directedEdgesCoverage:0 indirectPath: 1 requiredCollection:1
 Q8 Time:-86 LOC:8 Stages:2 DirectedEdges:0  directedEdgesCoverage:0 indirectPath: 1 requiredCollection:1
 Q9 Time:-131 LOC:23 Stages:4 DirectedEdges:0 directedEdgesCoverage:0 indirectPath: 0 requiredCollection:2
+Q10 Time:-78 LOC:7 Stages:4 DirectedEdges:2  directedEdgesCoverage:0.3333333333333333 indirectPath: 2 requiredCollection:2
