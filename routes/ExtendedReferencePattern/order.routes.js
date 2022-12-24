@@ -3,6 +3,7 @@ const { default: mongoose } = require('mongoose');
 const Product = require('../../model/ExtendedReferencePattern/Product.schema');
 const Order = require('../../model/ExtendedReferencePattern/Order.schema');
 const Customer = require('../../model/ExtendedReferencePattern/Customer.schema');
+const Review = require('../../model/ExtendedReferencePattern/Review.schema');
 const router = express.Router();
 
 const fs = require('fs');
@@ -129,38 +130,51 @@ router.get('/order/all', async (req, res) => {
   });
 });
 
-// router.get('/order/myProducts/reviews', async (req, res) => {
-//   let startTime = new Date().getTime();
+router.get('/order/myProducts/reviews', async (req, res) => {
+  let startTime = new Date().getTime();
 
-//   let allOrders = await Order.find()
-//     .where({
-//       customer: mongoose.Types.ObjectId('639727e0de472407751ba45c'),
-//     })
-//     .populate({
-//       path: 'products',
-//       populate: {
-//         path: 'lastTenReview',
-//         where: {
-//           customer: mongoose.Types.ObjectId('639727e0de472407751ba45c'),
-//         },
-//       },
-//     });
-//   res.json(allOrders);
-//   let endTime = new Date().getTime();
-//   let directedEdges = directedEdgesCount(DAG, 'Order', 'Review');
+  let allOrders = await Order.find({
+    where: {
+      customer: {
+        cust_id: mongoose.Types.ObjectId('63a5f00d3fb08ce64c0cee89'),
+      },
+    },
+  });
+  let productId = [];
 
-//   let indirectPath = indirectPathCount(DAG, 'Order', 'Review');
+  allOrders.forEach((order) => {
+    order.products.forEach((product) => {
+      productId.push(product.prod_id);
+    });
+  });
 
-//   let data = `Q9 Time:${
-//     startTime - endTime
-//   } LOC:13 Stages:5 DirectedEdges:${directedEdges}  directedEdgesCoverage:${
-//     directedEdges / getTotalDirectedEdges()
-//   } indirectPath: ${indirectPath} requiredCollection:1`;
+  let reviews = [];
 
-//   data += '\n';
-//   fs.appendFile('sp.txt', data, (err) => {
-//     return console.log(err);
-//   });
-// });
+  for (let i = 0; i < productId.length; i++) {
+    let oneReview = await Review.findOne({
+      where: {
+        product: mongoose.Types.ObjectId(productId[i]),
+        customer: mongoose.Types.ObjectId('63a5f00d3fb08ce64c0cee89'),
+      },
+    });
+    reviews.push(oneReview);
+  }
+
+  res.json(reviews);
+  let endTime = new Date().getTime();
+  let directedEdges = directedEdgesCount(DAG, 'Order', 'Review');
+
+  let indirectPath = indirectPathCount(DAG, 'Order', 'Review');
+
+  let data = `Q9 Time:${
+    startTime - endTime
+  } LOC:23 Stages:4 DirectedEdges:$0 directedEdgesCoverage:0
+  } indirectPath: 0 requiredCollection:2`;
+
+  data += '\n';
+  fs.appendFile('erp.txt', data, (err) => {
+    return console.log(err);
+  });
+});
 
 module.exports = router;
