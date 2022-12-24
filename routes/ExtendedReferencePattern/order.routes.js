@@ -69,7 +69,7 @@ router.post('/order', async (req, res) => {
 router.get('/order/recent', async (req, res) => {
   let startTime = new Date().getTime();
 
-  let recentOrders = await Order.findOne({
+  let recentOrders = await Order.find({
     where: {
       customer: {
         cust_id: mongoose.Types.ObjectId('63a5f00d3fb08ce64c0cee89'),
@@ -101,29 +101,33 @@ router.get('/order/recent', async (req, res) => {
   });
 });
 
-// router.get('/order/all', async (req, res) => {
-//   let startTime = new Date().getTime();
-//   let allOrders = await Order.find().where({
-//     customer: mongoose.Types.ObjectId('639727e0de472407751ba45c'),
-//   });
-//   res.json(allOrders);
+router.get('/order/all', async (req, res) => {
+  let startTime = new Date().getTime();
+  let allOrders = await Order.find({
+    where: {
+      customer: {
+        cust_id: mongoose.Types.ObjectId('63a5f00d3fb08ce64c0cee89'),
+      },
+    },
+  });
+  res.json(allOrders);
 
-//   let endTime = new Date().getTime();
-//   let directedEdges = directedEdgesCount(DAG, 'Order', 'Order');
+  let endTime = new Date().getTime();
+  let directedEdges = directedEdgesCount(DAG, 'Order', 'Order');
 
-//   let indirectPath = indirectPathCount(DAG, 'Order', 'Order');
+  let indirectPath = indirectPathCount(DAG, 'Order', 'Order');
 
-//   let data = `Q8 Time:${
-//     startTime - endTime
-//   } LOC:4 Stages:2 DirectedEdges:${directedEdges}  directedEdgesCoverage:${
-//     directedEdges / getTotalDirectedEdges()
-//   } indirectPath: ${indirectPath} requiredCollection:1`;
+  let data = `Q8 Time:${
+    startTime - endTime
+  } LOC:8 Stages:2 DirectedEdges:${directedEdges}  directedEdgesCoverage:${
+    directedEdges / getTotalDirectedEdges()
+  } indirectPath: ${indirectPath} requiredCollection:1`;
 
-//   data += '\n';
-//   fs.appendFile('sp.txt', data, (err) => {
-//     return console.log(err);
-//   });
-// });
+  data += '\n';
+  fs.appendFile('erp.txt', data, (err) => {
+    return console.log(err);
+  });
+});
 
 // router.get('/order/myProducts/reviews', async (req, res) => {
 //   let startTime = new Date().getTime();
